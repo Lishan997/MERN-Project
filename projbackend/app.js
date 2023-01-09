@@ -2,16 +2,20 @@
 //we need express for listening port
 // useUnifieldTopology and useCreateIndex help to keep connection live
 
+require('dotenv').config();
+
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/tshirt', { 
+mongoose.connect(process.env.DATABASE, { 
     useNewUrlParser: true,
     useUnifieldTopology: true,
     useCreateIndex: true
 }).then(() => {
     console.log("DB CONNECTED");
+}).catch(() => {
+    console.log("DB NOTCONNECTED")
 });
 const port = 8000;
 
