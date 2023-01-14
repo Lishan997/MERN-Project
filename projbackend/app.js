@@ -3,11 +3,16 @@
 // useUnifieldTopology and useCreateIndex help to keep connection live
 
 require('dotenv').config();
-
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 
+//common middlewares
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+//database connection
 mongoose.connect(process.env.DATABASE, { 
     useNewUrlParser: true,
     useUnifieldTopology: true,
@@ -17,7 +22,13 @@ mongoose.connect(process.env.DATABASE, {
 }).catch(() => {
     console.log("DB NOTCONNECTED")
 });
-const port = 8000;
+
+
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
+
+const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
     console.log(`app is running on port ${port}`);
