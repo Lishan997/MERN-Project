@@ -10,6 +10,7 @@ Creating Webapplication Using MERN Stack
 <details>
 <summary><h4>4.Middeleware and initial routes</h4></summary>
 
+<!--*******What is middle ware section start*******-->
 <details>
 <summary><h6>What is middleware? </h6></summary>
 Here we are visiting "admin" route and sending response message<br/>
@@ -37,5 +38,15 @@ app.get("/admin", isAdmin, admin);
 ```
 
 </details>
+<!--*******What is middle ware section end*******-->
+
+<details>
+<summary><h6>Common Middlewares</h6></summary>
+    body-parser --> Parse incoming request bodies in a middleware before your handlers, available under the req.body property.<br/>
+    cookie-parser --> Parse Cookie header and populate req.cookies with an object keyed by the cookie names.<br/>
+    cors --> CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.<br/>
+    Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own       from which a browser should permit loading resources
+</details>
+  
 </details>
 
