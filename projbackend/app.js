@@ -23,13 +23,18 @@ mongoose.connect(process.env.DATABASE, {
     console.log("DB NOTCONNECTED")
 });
 
-
+//use common middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
+//routes
+
+
+//port define
 const port = process.env.PORT || 8000;
 
+//starting server
 app.listen(port, () => {
     console.log(`app is running on port ${port}`);
 })
