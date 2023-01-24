@@ -38,9 +38,9 @@ app.get("/admin", isAdmin, admin);
 ```
 
 </details>
-<!--*******What is middle ware section end*******-->
+<!--*****************************************************************************What is middle ware section end*******-->
 
-<!--*******Common Middlewares start*******-->
+<!--*****************************************************************************Common Middlewares start*******-->
 <details>
 <summary><h6>2.Common Middlewares</h6></summary>
     body-parser --> Parse incoming request bodies in a middleware before your handlers, available under the req.body property.<br/>
@@ -48,7 +48,7 @@ app.get("/admin", isAdmin, admin);
     cors --> CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.<br/>
     Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own       from which a browser should permit loading resources
 </details>
-<!--*******Common Middlewares end*******-->
+<!--*****************************************************************************Common Middlewares end*******-->
 
 <!--*******Router in express start*******-->
 <details>
@@ -105,6 +105,92 @@ module.exports = router;
 
 </details>
 <!--*******How to use controller end*******-->
+
+<!--*****************************************************************************Signup start*******-->
+<details>
+<summary><h6>5.Signup</h6></summary>
+    * Create signup router and save data sending throgh postman in to mongodb database<br/> 
+    
+<b>Signup Controller</b><br/>
+![image](https://user-images.githubusercontent.com/54843684/214333360-f9723429-1b2a-467a-a0d6-7b906d1cd720.png)<br/>
+    
+ <b>Inside Router</b><br/>
+![image](https://user-images.githubusercontent.com/54843684/214333826-182a706a-a19c-484a-9b4e-b299feeb18a3.png)<br/>
+
+
+</details>
+<!--*****************************************************************************Signup end*******-->
+    
+<!--*****************************************************************************Request Validation start*******-->
+<details>
+<summary><h6>6.Validate Request and Show Messages</h6></summary>
+    
+<b>modified signup route as below with error messages</b><br/>
+```ruby
+const express = require('express');
+const { check, validationResult } = require('express-validator');
+const router = express.Router();
+
+const {signout, signup} = require("../controllers/auth");
+
+router.post(
+    "/signup", 
+    [
+        check("name", "name should be at least 3 charaters").isLength({min : 3}),
+        check("email", "email is required").isEmail(),
+        check("password", "password should be at least 3 charater").isLength({min : 3})
+    ] , 
+    signup
+);
+
+router.get("/signout", signout);
+
+
+module.exports = router;
+```  
+
+<b>signup controller is modifed like below</b><br/>
+```ruby
+const User = require("../models/user");
+const { check, validationResult } = require('express-validator');
+
+
+exports.signup = (req, res) => {
+
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.status(422).json({
+            error: errors.array()[0].msg
+        })
+    }
+
+    const user = new User(req.body);
+    user.save((err, user) => {
+        if(err){
+            return res.status(400).json({
+                err: "Not able to save user in DB "
+            })
+        }
+        res.json({
+            name: user.name,
+            email: user.email,
+            id: user._id
+        });
+    });
+}
+``` 
+
+<b>See below output of validation message</b><br/><br/>
+![image](https://user-images.githubusercontent.com/54843684/214385428-2fc60b17-0d5d-424a-84f8-8320804e3e81.png)
+    
+<b>When we use "param" insted of "msg", we can see parametrs that issue has</b><br/><br/>
+![image](https://user-images.githubusercontent.com/54843684/214386109-4797ee36-7850-4e18-ac34-8148f496282a.png)
+
+
+</details>
+<!--*****************************************************************************Request Validation end*******-->    
   
 </details>
 
