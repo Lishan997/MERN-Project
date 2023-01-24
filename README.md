@@ -38,9 +38,9 @@ app.get("/admin", isAdmin, admin);
 ```
 
 </details>
-<!--*******What is middle ware section end*******-->
+<!--*****************************************************************************What is middle ware section end*******-->
 
-<!--*******Common Middlewares start*******-->
+<!--*****************************************************************************Common Middlewares start*******-->
 <details>
 <summary><h6>2.Common Middlewares</h6></summary>
     body-parser --> Parse incoming request bodies in a middleware before your handlers, available under the req.body property.<br/>
@@ -48,7 +48,7 @@ app.get("/admin", isAdmin, admin);
     cors --> CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.<br/>
     Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own       from which a browser should permit loading resources
 </details>
-<!--*******Common Middlewares end*******-->
+<!--*****************************************************************************Common Middlewares end*******-->
 
 <!--*******Router in express start*******-->
 <details>
@@ -105,6 +105,21 @@ module.exports = router;
 
 </details>
 <!--*******How to use controller end*******-->
+
+<!--*****************************************************************************Signup start*******-->
+<details>
+<summary><h6>Signup</h6></summary>
+    * Create signup router and save data sending throgh postman in to mongodb database<br/> 
+    
+    <b>Signup Controller</b>
+    ![image](https://user-images.githubusercontent.com/54843684/214333360-f9723429-1b2a-467a-a0d6-7b906d1cd720.png)<br/>
+    
+    <b>Inside Router</b>
+    ![image](https://user-images.githubusercontent.com/54843684/214333826-182a706a-a19c-484a-9b4e-b299feeb18a3.png)<br/>
+
+
+</details>
+<!--*****************************************************************************Signup end*******-->
   
 </details>
 
