@@ -111,11 +111,11 @@ module.exports = router;
 <summary><h6>Signup</h6></summary>
     * Create signup router and save data sending throgh postman in to mongodb database<br/> 
     
-    <b>Signup Controller</b>
-    ![image](https://user-images.githubusercontent.com/54843684/214333360-f9723429-1b2a-467a-a0d6-7b906d1cd720.png)<br/>
+<b>Signup Controller</b><br/>
+![image](https://user-images.githubusercontent.com/54843684/214333360-f9723429-1b2a-467a-a0d6-7b906d1cd720.png)<br/>
     
-    <b>Inside Router</b>
-    ![image](https://user-images.githubusercontent.com/54843684/214333826-182a706a-a19c-484a-9b4e-b299feeb18a3.png)<br/>
+ <b>Inside Router</b><br/>
+![image](https://user-images.githubusercontent.com/54843684/214333826-182a706a-a19c-484a-9b4e-b299feeb18a3.png)<br/>
 
 
 </details>
