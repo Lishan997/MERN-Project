@@ -194,3 +194,15 @@ exports.signup = (req, res) => {
   
 </details>
 
+<details>
+<summary><h4>5.Authentication route and token</h4></summary>
+* signup is a process that we stored users details in to the data base<br/> 
+* How do we make sure that users log in success fully ? obvious thing is take users email or user name and password, and match the password with the data base password, if it is correctly logged in we can return true otherwise return false  <br/> 
+* In our user schema we have created <b>authenticate</b> methods that doing same above thing<br/>
+* How we make sure user is logged in?<br/> 
+    1. we either use some kind of cookies<br/> 
+    2. we either use some kind of token<br/>
+    
+using above mechanisam we put some infromation to user's browser to make sure that he has logged in and he can authenticate anypoint of time.<br/>In older apporocah we put cookies based infromation in to the users's browser Now modern application prefer <b>token based</b> methods 
+
+</details>
