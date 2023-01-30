@@ -203,6 +203,10 @@ exports.signup = (req, res) => {
     1. we either use some kind of cookies<br/> 
     2. we either use some kind of token<br/>
     
-using above mechanisam we put some infromation to user's browser to make sure that he has logged in and he can authenticate anypoint of time.<br/>In older apporocah we put cookies based infromation in to the users's browser Now modern application prefer <b>token based</b> methods 
+using above mechanisam we put some infromation to user's browser to make sure that he has logged in and he can authenticate anypoint of time.<br/>In older apporocah we put cookies based infromation in to the users's browser Now modern application prefer <b>token based</b> methods <br/>
+
+* Create webtoken using "jsonwebtoken", when we are creating webtoke we have to use key and value pair, id:password or email:password<br>
+* After we create webtoken we need to put that token in to User's browser for that we use "cookie-parser"(adding or update things in cookie)<br/>
+* How do we continuesly checked in users is authenticated or not, for that we are using "express-jwt"<br/>
 
 </details>
