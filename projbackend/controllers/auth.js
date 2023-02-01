@@ -1,12 +1,11 @@
+require('dotenv').config();
 const User = require("../models/user");
 const { check, validationResult } = require('express-validator');
 var jwt = require('jsonwebtoken');
 var expressJwt = require("express-jwt");
-const user = require("../models/user");
 
 
 exports.signup = (req, res) => {
-
 
     const errors = validationResult(req);
 
@@ -31,46 +30,40 @@ exports.signup = (req, res) => {
     });
 }
 
-exports.signin = (req, res) =>{
-    
+exports.signin = (req, res) => {
+    const { email, password } = req.body;
     const errors = validationResult(req);
-    
 
-    if(!errors.isEmpty()){
-        return res.status(422).json({
-            error: errors.array()[0].message
-        })
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        error: errors.array()[0].msg
+      });
     }
-
-    const {email, password} = req.body;
-
-    //this methods alwas return error and object
-    User.findOne({email}, (err, user) =>{
-        if(err){
-            return res.status().json({
-                error: "User Email Doesnot exsisit"
-            })
-        }
-
-        if(!user.authenticate(password)){
-            return res.status(401).json({
-                error: "Password Don not match"
-            })
-        }
-    })
-
-    //sign in user
-
-    //create token
-    const token = jwt.sign({_id:user._id}, process.env.SECRETE);
-
-    //put token in cookie
-    res.cookie("token", token, {expire: new Date() + 9999});
-
-    //send response to front end
-    const {_id, name, role} = user;
-    return res.json({token, user:{_id, name, email, role}})
-}
+  
+    User.findOne({ email }, (err, user) => {
+      if (err || !user) {
+        return res.status(400).json({
+          error: "USER email does not exists"
+        });
+      }
+  
+      if (!user.authenticate(password)) {
+        return res.status(401).json({
+          error: "Email and password do not match"
+        });
+      }
+  
+      //create token
+      const token = jwt.sign({ _id: user._id }, process.env.SECRETE);
+      //put token in cookie
+      res.cookie("token", token, { expire: new Date() + 9999 });
+  
+      //send response to front end
+      const { _id, name, email, role } = user;
+      return res.json({ token, user: { _id, name, email, role } });
+    });
+  };
+  
 
 exports.signout = (req, res) => {
     res.json({
