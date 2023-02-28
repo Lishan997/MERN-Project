@@ -11,7 +11,7 @@ exports.signup = (req, res) => {
 
     if(!errors.isEmpty()){
         return res.status(422).json({
-            error: errors.array()[0].message
+            error: errors.array()[0].msg
         })
     }
 
@@ -78,6 +78,23 @@ exports.isSignedIn = expressJwt({
   userProperty: "auth"
 })
 
-
-
 //custom middlewares 
+exports.isAuthenticated = (req, res, next) => {
+  //profile propert is setuped if user is signed in
+  let checker = req.profile && req.auth && req.profile._id === req.auth._id;
+  if(!checker){
+    return res.status(403).json({
+      error:"Access Denied"
+    });
+  }
+  next();
+}
+
+exports.isAdmin = (req, res, next) => {
+  if(req.profile.role === 0){
+    return res.status(403).json({
+      error:"You are not admin. access deined"
+    })
+  }
+  next();
+}

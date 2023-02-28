@@ -26,7 +26,10 @@ router.post(
 router.get("/signout", signout);
 
 router.get("/testroute", isSignedIn, (req, res) => {
-    res.send("A Protected Route")
+    //inside "isSignedIn" we have used userProperty: "auth" what this does is, this is added property called auth to the request
+    //that property stored signedusers id
+    //res.send("A Protected Route");
+    return res.json(req.auth);
 })
 
 
