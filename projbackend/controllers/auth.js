@@ -11,7 +11,7 @@ exports.signup = (req, res) => {
 
     if(!errors.isEmpty()){
         return res.status(422).json({
-            error: errors.array()[0].message
+            error: errors.array()[0].msg
         })
     }
 
@@ -62,11 +62,39 @@ exports.signin = (req, res) => {
       const { _id, name, email, role } = user;
       return res.json({ token, user: { _id, name, email, role } });
     });
-  };
+};
   
 
 exports.signout = (req, res) => {
+    res.clearCookie("token");
     res.json({
-        message: "user signout"
+        message: "user signout successfully"
     });
+}
+
+//protected routes
+exports.isSignedIn = expressJwt({
+  secret: process.env.SECRETE,
+  userProperty: "auth"
+})
+
+//custom middlewares 
+exports.isAuthenticated = (req, res, next) => {
+  //profile propert is setuped if user is signed in
+  let checker = req.profile && req.auth && req.profile._id === req.auth._id;
+  if(!checker){
+    return res.status(403).json({
+      error:"Access Denied"
+    });
+  }
+  next();
+}
+
+exports.isAdmin = (req, res, next) => {
+  if(req.profile.role === 0){
+    return res.status(403).json({
+      error:"You are not admin. access deined"
+    })
+  }
+  next();
 }
